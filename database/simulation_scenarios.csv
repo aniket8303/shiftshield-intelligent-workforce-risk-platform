@@ -1,0 +1,2 @@
+scenario_id,organization_id,created_by_user_id,shift_id,scenario_name,status,current_risk,simulated_risk,risk_reduction,created_at
+1,1,7,453,ICU Night Shift Coverage Scenario,DRAFT,78,48,30,2026-09-16 08:20:00

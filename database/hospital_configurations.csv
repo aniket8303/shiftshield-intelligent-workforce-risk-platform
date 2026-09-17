@@ -1,0 +1,2 @@
+configuration_id,organization_id,minimum_rest_hours,max_consecutive_shifts,max_weekly_hours,high_workload_threshold,timezone,status
+1,1,8,4,48,75,Asia/Kolkata,ACTIVE

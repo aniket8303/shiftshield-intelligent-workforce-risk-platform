@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Normalize font family and colors across the app */
+  body {
+    @apply font-sans antialiased text-slate-800 bg-white;
+  }
+
+  /* Heading scales */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-slate-900 tracking-tight;
+  }
+
+  /* Reset default links */
+  a {
+    @apply text-inherit no-underline transition-colors;
+  }
+
+  /* Clean up default button styling */
+  button {
+    @apply outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
+  }
+}
+
+@layer components {
+  /* Reusable Application Components */
+  
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-lg transition-colors border shadow-sm;
+  }
+  
+  .btn-primary {
+    @apply bg-brand-600 text-white border-brand-600 hover:bg-brand-700 hover:border-brand-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-slate-600 border-transparent hover:bg-slate-100 shadow-none hover:text-slate-900;
+  }
+
+  .card {
+    @apply bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-md hover:border-slate-300 transition-all;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-sm rounded-xl;
+  }
+}

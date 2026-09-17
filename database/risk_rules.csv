@@ -1,0 +1,7 @@
+risk_rule_id,organization_id,rule_name,rule_code,threshold,weight,active
+1,1,Minimum Rest Period,MIN_REST_HOURS,8,25,True
+2,1,Maximum Consecutive Shifts,MAX_CONSECUTIVE_SHIFTS,4,20,True
+3,1,Weekly Working Hours,MAX_WEEKLY_HOURS,48,20,True
+4,1,Senior Staff Coverage,MIN_SENIOR_COVERAGE,2,20,True
+5,1,Staffing Coverage,MIN_STAFF_COVERAGE,8,30,True
+6,1,High Workload,HIGH_WORKLOAD_THRESHOLD,75,15,True

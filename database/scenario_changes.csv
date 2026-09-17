@@ -1,0 +1,2 @@
+scenario_change_id,scenario_id,organization_id,shift_id,change_type,field_name,old_value,new_value,description,created_at
+1,1,1,453,ASSIGN_STAFF,staff_id,,1,Add Priya Sharma as replacement/senior coverage,2026-09-16 08:21:00

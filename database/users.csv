@@ -1,0 +1,11 @@
+user_id,organization_id,email,display_name,role,department_id,status
+1,1,admin@shiftshield.com,System Admin,SYSTEM_ADMIN,,ACTIVE
+2,1,ceo@shiftshield.com,Dr. Ananya Mehta,CEO,,ACTIVE
+3,1,coo@shiftshield.com,Vikram Desai,COO,,ACTIVE
+4,1,hr@shiftshield.com,Kavita Joshi,HR,,ACTIVE
+5,1,nursing@shiftshield.com,Meera Kulkarni,NURSING_SUPERINTENDENT,,ACTIVE
+6,1,head.icu@shiftshield.com,Dr. Sameer Patil,DEPARTMENT_HEAD,1.0,ACTIVE
+7,1,supervisor@shiftshield.com,Rohan Shah,SUPERVISOR,1.0,ACTIVE
+8,1,priya@shiftshield.com,Priya Sharma,STAFF,1.0,ACTIVE
+9,1,supervisor.emergency@shiftshield.com,Neha Rao,SUPERVISOR,2.0,ACTIVE
+10,1,head.emergency@shiftshield.com,Dr. Arjun Rao,DEPARTMENT_HEAD,2.0,ACTIVE

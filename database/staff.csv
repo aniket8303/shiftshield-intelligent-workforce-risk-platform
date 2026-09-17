@@ -1,0 +1,101 @@
+staff_id,organization_id,employee_code,full_name,department_id,job_role,weekly_hours,consecutive_shifts,last_rest_hours,status
+1,1,EMP-1001,Priya Sharma,1,ICU Nurse,36,0,11,ACTIVE
+2,1,EMP-1002,Rahul Sharma,2,Emergency Nurse,40,1,8,ACTIVE
+3,1,EMP-1003,Amit Sharma,3,Technician,48,4,8,ACTIVE
+4,1,EMP-1004,Neha Sharma,4,Pediatric Technician,44,0,7,ACTIVE
+5,1,EMP-1005,Riya Sharma,5,Staff Nurse,40,1,7,ACTIVE
+6,1,EMP-1006,Karan Sharma,6,OT Technician,40,4,14,ACTIVE
+7,1,EMP-1007,Sneha Sharma,7,Lab Technician,44,4,11,ACTIVE
+8,1,EMP-1008,Arjun Sharma,8,Radiology Technician,40,3,12,ACTIVE
+9,1,EMP-1009,Pooja Sharma,9,Senior Pharmacist,40,1,12,ACTIVE
+10,1,EMP-1010,Rohit Sharma,1,Staff Nurse,36,3,8,ACTIVE
+11,1,EMP-1011,Ayesha Sharma,2,Senior Nurse,42,4,11,ACTIVE
+12,1,EMP-1012,Nikhil Sharma,3,Cardiology Nurse,48,3,8,ACTIVE
+13,1,EMP-1013,Kavya Sharma,4,Senior Nurse,36,4,11,ACTIVE
+14,1,EMP-1014,Siddharth Sharma,5,Ward Nurse,46,2,10,ACTIVE
+15,1,EMP-1015,Meenal Sharma,6,OT Technician,36,0,10,ACTIVE
+16,1,EMP-1016,Aditya Sharma,7,Senior Technician,36,1,8,ACTIVE
+17,1,EMP-1017,Tanvi Sharma,8,Senior Technician,42,3,12,ACTIVE
+18,1,EMP-1018,Varun Sharma,9,Pharmacy Staff,42,2,10,ACTIVE
+19,1,EMP-1019,Isha Sharma,1,ICU Nurse,42,0,9,ACTIVE
+20,1,EMP-1020,Manish Sharma,2,Emergency Technician,48,1,9,ACTIVE
+21,1,EMP-1021,Priya Patil,3,Senior Nurse,44,2,10,ACTIVE
+22,1,EMP-1022,Rahul Patil,4,Pediatric Technician,42,0,10,ACTIVE
+23,1,EMP-1023,Amit Patil,5,Staff Nurse,42,3,11,ACTIVE
+24,1,EMP-1024,Neha Patil,6,OT Nurse,40,4,12,ACTIVE
+25,1,EMP-1025,Riya Patil,7,Lab Technician,48,3,14,ACTIVE
+26,1,EMP-1026,Karan Patil,8,Senior Technician,40,2,9,ACTIVE
+27,1,EMP-1027,Sneha Patil,9,Pharmacy Staff,48,4,11,ACTIVE
+28,1,EMP-1028,Arjun Patil,1,ICU Nurse,46,3,14,ACTIVE
+29,1,EMP-1029,Pooja Patil,2,Senior Nurse,40,1,16,ACTIVE
+30,1,EMP-1030,Rohit Patil,3,Cardiology Nurse,36,0,9,ACTIVE
+31,1,EMP-1031,Ayesha Patil,4,Pediatric Technician,40,3,8,ACTIVE
+32,1,EMP-1032,Nikhil Patil,5,Senior Nurse,44,4,16,ACTIVE
+33,1,EMP-1033,Kavya Patil,6,OT Technician,42,4,7,ACTIVE
+34,1,EMP-1034,Siddharth Patil,7,Lab Technician,48,4,11,ACTIVE
+35,1,EMP-1035,Meenal Patil,8,Senior Technician,36,2,14,ACTIVE
+36,1,EMP-1036,Aditya Patil,9,Pharmacy Staff,44,0,11,ACTIVE
+37,1,EMP-1037,Tanvi Patil,1,ICU Nurse,40,4,8,ACTIVE
+38,1,EMP-1038,Varun Patil,2,Emergency Technician,42,4,10,ACTIVE
+39,1,EMP-1039,Isha Patil,3,Cardiology Nurse,42,1,7,ACTIVE
+40,1,EMP-1040,Manish Patil,4,Pediatric Technician,42,3,7,ACTIVE
+41,1,EMP-1041,Priya Joshi,5,Staff Nurse,42,2,10,ACTIVE
+42,1,EMP-1042,Rahul Joshi,6,OT Nurse,40,4,8,ACTIVE
+43,1,EMP-1043,Amit Joshi,7,Lab Technician,48,3,8,ACTIVE
+44,1,EMP-1044,Neha Joshi,8,Radiology Technician,40,3,9,ACTIVE
+45,1,EMP-1045,Riya Joshi,9,Senior Pharmacist,46,4,14,ACTIVE
+46,1,EMP-1046,Karan Joshi,1,Staff Nurse,46,1,11,ACTIVE
+47,1,EMP-1047,Sneha Joshi,2,Senior Nurse,48,2,16,ACTIVE
+48,1,EMP-1048,Arjun Joshi,3,Technician,44,0,10,ACTIVE
+49,1,EMP-1049,Pooja Joshi,4,Pediatric Nurse,36,2,7,ACTIVE
+50,1,EMP-1050,Rohit Joshi,5,Ward Nurse,46,1,10,ACTIVE
+51,1,EMP-1051,Ayesha Joshi,6,OT Nurse,36,0,10,ACTIVE
+52,1,EMP-1052,Nikhil Joshi,7,Lab Technician,36,2,8,ACTIVE
+53,1,EMP-1053,Kavya Joshi,8,Radiology Technician,42,3,10,ACTIVE
+54,1,EMP-1054,Siddharth Joshi,9,Pharmacy Staff,48,4,16,ACTIVE
+55,1,EMP-1055,Meenal Joshi,1,Staff Nurse,44,3,10,ACTIVE
+56,1,EMP-1056,Aditya Joshi,2,Emergency Nurse,36,3,12,ACTIVE
+57,1,EMP-1057,Tanvi Joshi,3,Senior Nurse,44,3,7,ACTIVE
+58,1,EMP-1058,Varun Joshi,4,Pediatric Technician,48,0,7,ACTIVE
+59,1,EMP-1059,Isha Joshi,5,Senior Nurse,48,2,8,ACTIVE
+60,1,EMP-1060,Manish Joshi,6,OT Nurse,40,1,16,ACTIVE
+61,1,EMP-1061,Priya Kulkarni,7,Lab Technician,44,1,11,ACTIVE
+62,1,EMP-1062,Rahul Kulkarni,8,Senior Technician,40,0,16,ACTIVE
+63,1,EMP-1063,Amit Kulkarni,9,Pharmacy Staff,36,4,7,ACTIVE
+64,1,EMP-1064,Neha Kulkarni,1,Staff Nurse,40,1,14,ACTIVE
+65,1,EMP-1065,Riya Kulkarni,2,Senior Nurse,44,1,14,ACTIVE
+66,1,EMP-1066,Karan Kulkarni,3,Cardiology Nurse,40,3,7,ACTIVE
+67,1,EMP-1067,Sneha Kulkarni,4,Senior Nurse,42,3,11,ACTIVE
+68,1,EMP-1068,Arjun Kulkarni,5,Senior Nurse,48,4,16,ACTIVE
+69,1,EMP-1069,Pooja Kulkarni,6,OT Nurse,40,2,10,ACTIVE
+70,1,EMP-1070,Rohit Kulkarni,7,Lab Technician,46,4,7,ACTIVE
+71,1,EMP-1071,Ayesha Kulkarni,8,Senior Technician,36,0,16,ACTIVE
+72,1,EMP-1072,Nikhil Kulkarni,9,Pharmacy Staff,36,4,8,ACTIVE
+73,1,EMP-1073,Kavya Kulkarni,1,Staff Nurse,36,4,8,ACTIVE
+74,1,EMP-1074,Siddharth Kulkarni,2,Emergency Technician,40,3,8,ACTIVE
+75,1,EMP-1075,Meenal Kulkarni,3,Technician,40,4,7,ACTIVE
+76,1,EMP-1076,Aditya Kulkarni,4,Pediatric Technician,36,3,12,ACTIVE
+77,1,EMP-1077,Tanvi Kulkarni,5,Senior Nurse,40,2,10,ACTIVE
+78,1,EMP-1078,Varun Kulkarni,6,Senior Nurse,44,1,11,ACTIVE
+79,1,EMP-1079,Isha Kulkarni,7,Senior Technician,42,0,7,ACTIVE
+80,1,EMP-1080,Manish Kulkarni,8,Senior Technician,46,4,8,ACTIVE
+81,1,EMP-1081,Priya Shah,9,Pharmacy Staff,46,1,11,ACTIVE
+82,1,EMP-1082,Rahul Shah,1,Staff Nurse,42,0,10,ACTIVE
+83,1,EMP-1083,Amit Shah,2,Senior Nurse,42,1,16,ACTIVE
+84,1,EMP-1084,Neha Shah,3,Technician,48,2,7,ACTIVE
+85,1,EMP-1085,Riya Shah,4,Pediatric Technician,46,2,8,ACTIVE
+86,1,EMP-1086,Karan Shah,5,Staff Nurse,42,0,8,ACTIVE
+87,1,EMP-1087,Sneha Shah,6,OT Technician,46,1,11,ACTIVE
+88,1,EMP-1088,Arjun Shah,7,Senior Technician,46,1,12,ACTIVE
+89,1,EMP-1089,Pooja Shah,8,Radiology Technician,48,2,16,ACTIVE
+90,1,EMP-1090,Rohit Shah,9,Senior Pharmacist,36,0,14,ACTIVE
+91,1,EMP-1091,Ayesha Shah,10,Coordinator,32,0,7,ACTIVE
+92,1,EMP-1092,Nikhil Shah,10,Coordinator,32,1,11,ACTIVE
+93,1,EMP-1093,Kavya Shah,10,Administrator,32,3,14,ACTIVE
+94,1,EMP-1094,Siddharth Shah,10,HR Executive,32,0,8,ACTIVE
+95,1,EMP-1095,Meenal Shah,10,Administrator,32,1,7,ACTIVE
+96,1,EMP-1096,Aditya Shah,10,Coordinator,32,4,9,ACTIVE
+97,1,EMP-1097,Tanvi Shah,10,Coordinator,32,1,7,ACTIVE
+98,1,EMP-1098,Varun Shah,10,Coordinator,32,2,7,ACTIVE
+99,1,EMP-1099,Isha Shah,10,Coordinator,32,1,10,ACTIVE
+100,1,EMP-1100,Manish Shah,10,HR Executive,32,0,12,ACTIVE

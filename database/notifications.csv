@@ -1,0 +1,4 @@
+notification_id,organization_id,recipient_user_id,type,message,status,created_at
+1,1,7,RISK_ALERT,ICU Night Shift has reached HIGH risk.,UNREAD,2026-09-16 08:05:00
+2,1,6,RISK_ALERT,ICU Night Shift requires additional senior coverage.,UNREAD,2026-09-16 08:06:00
+3,1,8,SHIFT_CHANGE,Your ICU Night Shift assignment is currently under operational review.,UNREAD,2026-09-16 08:07:00

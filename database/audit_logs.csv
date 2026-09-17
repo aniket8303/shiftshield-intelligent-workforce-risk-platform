@@ -1,0 +1,6 @@
+audit_log_id,organization_id,user_id,role,action,entity_type,entity_id,old_value,new_value,description,created_at
+1,1,7,SUPERVISOR,VIEW_RISK,SHIFT,453,,,Viewed ICU Night Shift risk details,2026-09-16 08:18:00
+2,1,7,SUPERVISOR,RUN_SIMULATION,SIMULATION,1,,,Simulated adding Priya Sharma to ICU Night Shift,2026-09-16 08:21:00
+3,1,7,SUPERVISOR,APPLY_SCENARIO,SHIFT_ASSIGNMENT,1,Assigned staff: 6; Senior: 1,Assigned staff: 7; Senior: 2,Applied approved staffing scenario,2026-09-16 08:25:00
+4,1,2,CEO,VIEW_REPORT,RISK_REPORT,1,,,Viewed organization risk report,2026-09-16 08:30:00
+5,1,4,HR,UPDATE_STAFF,STAFF,1,weekly_hours=40,weekly_hours=36,Updated staff workforce information,2026-09-16 08:35:00
