@@ -49,6 +49,9 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Public health endpoint for deployment monitoring
+                        .requestMatchers("/actuator/health").permitAll()
+
                         // Public auth endpoints
                         .requestMatchers("/api/auth/**", "/api/contact/**").permitAll()
 
@@ -57,21 +60,34 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/risk-rules/**").hasRole("SYSTEM_ADMIN")
 
                         // HR Only endpoints for modifying staff/org setup
-                        .requestMatchers(HttpMethod.POST, "/api/staff/**", "/api/departments/**").hasAnyRole("HR", "SYSTEM_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/staff/**", "/api/departments/**").hasAnyRole("HR", "SYSTEM_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/staff/**", "/api/departments/**").hasAnyRole("HR", "SYSTEM_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/staff/**", "/api/departments/**")
+                        .hasAnyRole("HR", "SYSTEM_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/staff/**", "/api/departments/**")
+                        .hasAnyRole("HR", "SYSTEM_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/staff/**", "/api/departments/**")
+                        .hasAnyRole("HR", "SYSTEM_ADMIN")
 
-                        // Public operational endpoints for Demo purposes (Read-only)
-                        .requestMatchers(HttpMethod.GET, "/api/departments/**", "/api/shifts/**", "/api/staff/**", "/api/risk/**").permitAll()
+                        // Authenticated operational endpoints
+                        // Organization isolation is enforced by the service layer.
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/departments/**",
+                                "/api/shifts/**",
+                                "/api/staff/**",
+                                "/api/risk/**")
+                        .authenticated()
 
                         // Role-based Shift management
-                        .requestMatchers(HttpMethod.POST, "/api/shifts/*/assignments").hasAnyRole("SUPERVISOR", "NURSING_SUPERINTENDENT", "DEPARTMENT_HEAD")
-                        .requestMatchers(HttpMethod.DELETE, "/api/shifts/*/assignments/*").hasAnyRole("SUPERVISOR", "NURSING_SUPERINTENDENT", "DEPARTMENT_HEAD")
-                        .requestMatchers(HttpMethod.POST, "/api/shifts/**").hasAnyRole("NURSING_SUPERINTENDENT", "DEPARTMENT_HEAD", "HR")
+                        .requestMatchers(HttpMethod.POST, "/api/shifts/*/assignments")
+                        .hasAnyRole("SUPERVISOR", "NURSING_SUPERINTENDENT", "DEPARTMENT_HEAD")
+                        .requestMatchers(HttpMethod.DELETE, "/api/shifts/*/assignments/*")
+                        .hasAnyRole("SUPERVISOR", "NURSING_SUPERINTENDENT", "DEPARTMENT_HEAD")
+                        .requestMatchers(HttpMethod.POST, "/api/shifts/**")
+                        .hasAnyRole("NURSING_SUPERINTENDENT", "DEPARTMENT_HEAD", "HR")
 
-                        // Any authenticated user can access basic info (with method-level security checking org isolation)
-                        .anyRequest().authenticated()
-                )
+                        // Any authenticated user can access basic info (with method-level security
+                        // checking org isolation)
+                        .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -81,13 +97,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList(
-            "http://localhost:*", 
-            "http://127.0.0.1:*",
-            "https://*.vercel.app",
-            "https://shiftshield-*.vercel.app",
-            "https://shiftshield.com",
-            "https://*.shiftshield.com"
-        ));
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "https://*.vercel.app",
+                "https://shiftshield-*.vercel.app",
+                "https://shiftshield.com",
+                "https://*.shiftshield.com"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);

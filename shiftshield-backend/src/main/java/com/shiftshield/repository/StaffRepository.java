@@ -9,7 +9,11 @@ import java.util.Optional;
 
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Integer> {
+    long countByOrganizationId(Integer organizationId);
+
     List<Staff> findByOrganizationId(Integer organizationId);
+
     List<Staff> findByOrganizationIdAndDepartmentId(Integer organizationId, Integer departmentId);
+
     Optional<Staff> findByUserId(Integer userId);
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ShieldCheck, Lock, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
-import api from '../services/api';
+import api from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
@@ -19,9 +19,9 @@ export default function Login() {
 
     try {
       const response = await api.post('/auth/login', { email, password });
-      
+
       const { token, user } = response.data;
-      
+
       // Update AuthContext (which handles normalization and localStorage)
       login(token, user);
 
@@ -32,7 +32,7 @@ export default function Login() {
       }
 
       // Route based on real backend roles
-      switch(normalizedRole) {
+      switch (normalizedRole) {
         case 'CEO':
           navigate('/ceo/dashboard');
           break;
@@ -89,7 +89,7 @@ export default function Login() {
         <div className="absolute inset-0 bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800"></div>
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
         <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-brand-500/20 blur-[120px]"></div>
-        
+
         <div className="relative z-10">
           <Link to="/" className="flex items-center gap-2 mb-12">
             <div className="p-1.5 bg-brand-600 rounded-lg">
@@ -107,7 +107,7 @@ export default function Login() {
             <p className="text-lg text-brand-200 mb-8 leading-relaxed">
               Securely access your hospital's live workforce data, manage critical shift risks, and run operational simulations.
             </p>
-            
+
             <div className="space-y-4">
               <div className="flex items-center text-brand-100">
                 <CheckCircle2 className="w-5 h-5 text-brand-400 mr-3" />

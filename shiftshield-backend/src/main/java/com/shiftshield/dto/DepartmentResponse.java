@@ -16,4 +16,6 @@ public class DepartmentResponse {
     private String status;
     private Integer headUserId;
     private String headUserName;
+    private Integer organizationId;
+    private String organizationName;
 }

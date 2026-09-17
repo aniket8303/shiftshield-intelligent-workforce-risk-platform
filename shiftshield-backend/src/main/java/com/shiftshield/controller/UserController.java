@@ -1,8 +1,11 @@
 package com.shiftshield.controller;
 
+import com.shiftshield.dto.UserResponseDTO;
 import com.shiftshield.entity.User;
 import com.shiftshield.repository.UserRepository;
 import com.shiftshield.service.UserService;
+import com.shiftshield.service.AuditLogService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,42 +25,124 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private AuditLogService auditLogService;
 
+    // =========================
+    // GET ALL USERS
+    // =========================
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        // Exclude passwords from response
-        List<User> users = userRepository.findAll().stream().peek(u -> u.setPassword(null)).collect(Collectors.toList());
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+
+        List<UserResponseDTO> users = userRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+
         return ResponseEntity.ok(users);
     }
 
+    // =========================
+    // CREATE USER
+    // =========================
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody User user) {
-        if (userRepository.findAll().stream().anyMatch(u -> u.getEmail().equals(user.getEmail()))) {
-            return ResponseEntity.badRequest().body("Email already exists");
+
+        if (user.getEmail() == null || user.getEmail().isBlank()) {
+            return ResponseEntity.badRequest()
+                    .body("Email is required");
         }
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest()
+                    .body("Email already exists");
+        }
+
         User saved = userService.register(user);
-        saved.setPassword(null);
-        return ResponseEntity.ok(saved);
+        
+        auditLogService.logAction("CREATE_USER", "User", saved.getId(), "Created user account for: " + saved.getEmail());
+
+        return ResponseEntity.ok(toDTO(saved));
     }
 
+    // =========================
+    // UPDATE USER
+    // =========================
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody User updatedUser) {
+    public ResponseEntity<?> updateUser(
+            @PathVariable Integer id,
+            @RequestBody User updatedUser) {
+
         Optional<User> existing = userRepository.findById(id);
+
         if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
         User user = existing.get();
+
         user.setFirstName(updatedUser.getFirstName());
         user.setLastName(updatedUser.getLastName());
         user.setPhone(updatedUser.getPhone());
         user.setRole(updatedUser.getRole());
         user.setStatus(updatedUser.getStatus());
-        if(updatedUser.getOrganization() != null) {
+
+        if (updatedUser.getOrganization() != null
+                && updatedUser.getOrganization().getId() != null) {
+
             user.setOrganization(updatedUser.getOrganization());
         }
 
         User saved = userRepository.save(user);
-        saved.setPassword(null);
-        return ResponseEntity.ok(saved);
+
+        auditLogService.logAction("UPDATE_USER", "User", saved.getId(), "Updated user account for: " + saved.getEmail());
+
+        return ResponseEntity.ok(toDTO(saved));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+
+        Optional<User> existing = userRepository.findById(id);
+
+        if (existing.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = existing.get();
+        user.setStatus("INACTIVE");
+        userRepository.save(user);
+        
+        auditLogService.logAction("DEACTIVATE_USER", "User", user.getId(), "Deactivated user account for: " + user.getEmail());
+
+        return ResponseEntity.noContent().build();
+    }
+
+    // =========================
+    // ENTITY → DTO
+    // =========================
+    private UserResponseDTO toDTO(User user) {
+
+        Integer organizationId = null;
+        String organizationName = null;
+
+        if (user.getOrganization() != null) {
+            organizationId = user.getOrganization().getId();
+            organizationName = user.getOrganization().getName();
+        }
+
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .phone(user.getPhone())
+                .role(user.getRole())
+                .status(user.getStatus())
+                .createdAt(user.getCreatedAt())
+                .organizationId(organizationId)
+                .organizationName(organizationName)
+                .build();
     }
 }

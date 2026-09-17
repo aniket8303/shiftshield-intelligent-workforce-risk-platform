@@ -41,4 +41,13 @@ public class RiskController {
             @RequestParam Integer staffId) {
         return ResponseEntity.ok(riskService.simulateAssignmentRisk(shiftId, staffId));
     }
+
+    @PostMapping("/scenarios/{scenarioId}/apply")
+    @PreAuthorize("hasAnyRole('SUPERVISOR', 'NURSING_SUPERINTENDENT', 'DEPARTMENT_HEAD', 'SYSTEM_ADMIN')")
+    public ResponseEntity<RiskAssessmentResponse> applyScenario(
+            @PathVariable Long scenarioId) {
+
+        return ResponseEntity.ok(
+                riskService.applyScenario(scenarioId));
+    }
 }

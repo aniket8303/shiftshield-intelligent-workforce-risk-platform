@@ -30,7 +30,7 @@ export default function AuditLogs() {
     const term = searchTerm.toLowerCase();
     return (
       (log.action && log.action.toLowerCase().includes(term)) ||
-      (log.description && log.description.toLowerCase().includes(term)) ||
+      (log.details && log.details.toLowerCase().includes(term)) ||
       (log.entityType && log.entityType.toLowerCase().includes(term))
     );
   });
@@ -115,7 +115,7 @@ export default function AuditLogs() {
                       <div className="text-xs text-slate-400">ID: {log.entityId}</div>
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-600 max-w-md truncate">
-                      {log.description}
+                      {log.details}
                     </td>
                     <td className="px-6 py-4 text-center">
                       <button className="text-indigo-600 hover:text-indigo-800 p-1 rounded-md hover:bg-indigo-50 transition-colors">
@@ -173,7 +173,7 @@ export default function AuditLogs() {
               <div>
                 <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Description</div>
                 <div className="text-sm text-slate-700 bg-white border border-slate-200 p-4 rounded-lg leading-relaxed">
-                  {selectedLog.description}
+                  {selectedLog.details}
                 </div>
               </div>
               

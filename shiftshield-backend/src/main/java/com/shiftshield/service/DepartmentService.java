@@ -154,6 +154,8 @@ public class DepartmentService {
                 .status(dept.getStatus())
                 .headUserId(dept.getHeadUser() != null ? dept.getHeadUser().getId() : null)
                 .headUserName(dept.getHeadUser() != null ? dept.getHeadUser().getFirstName() + " " + dept.getHeadUser().getLastName() : null)
+                .organizationId(dept.getOrganization() != null ? dept.getOrganization().getId() : null)
+                .organizationName(dept.getOrganization() != null ? dept.getOrganization().getName() : null)
                 .build();
     }
 }

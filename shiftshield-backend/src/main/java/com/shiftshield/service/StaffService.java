@@ -25,23 +25,27 @@ public class StaffService {
     private final DepartmentRepository departmentRepository;
     private final SecurityUtils securityUtils;
     private final PasswordEncoder passwordEncoder;
+    private final AuditLogService auditLogService;
 
     public StaffService(StaffRepository staffRepository,
                         UserRepository userRepository,
                         DepartmentRepository departmentRepository,
                         SecurityUtils securityUtils,
-                        PasswordEncoder passwordEncoder) {
+                        PasswordEncoder passwordEncoder,
+                        AuditLogService auditLogService) {
         this.staffRepository = staffRepository;
         this.userRepository = userRepository;
         this.departmentRepository = departmentRepository;
         this.securityUtils = securityUtils;
         this.passwordEncoder = passwordEncoder;
+        this.auditLogService = auditLogService;
     }
 
     public List<StaffResponse> getAllStaff() {
         Integer orgId = securityUtils.getCurrentOrganizationId();
         return staffRepository.findByOrganizationId(orgId)
                 .stream()
+                .filter(staff -> "STAFF".equals(staff.getUser().getRole()))
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -50,6 +54,7 @@ public class StaffService {
         Integer orgId = securityUtils.getCurrentOrganizationId();
         return staffRepository.findByOrganizationIdAndDepartmentId(orgId, departmentId)
                 .stream()
+                .filter(staff -> "STAFF".equals(staff.getUser().getRole()))
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
@@ -100,6 +105,8 @@ public class StaffService {
                 .build();
         newStaff = staffRepository.save(newStaff);
 
+        auditLogService.logAction("CREATE_STAFF", "Staff", newStaff.getId(), "Created staff member: " + newStaff.getUser().getFirstName() + " " + newStaff.getUser().getLastName());
+
         return mapToResponse(newStaff);
     }
 
@@ -137,6 +144,9 @@ public class StaffService {
         staff.setIsActive(request.getIsActive() != null ? request.getIsActive() : true);
         
         Staff updatedStaff = staffRepository.save(staff);
+        
+        auditLogService.logAction("UPDATE_STAFF", "Staff", updatedStaff.getId(), "Updated staff member: " + user.getFirstName() + " " + user.getLastName());
+        
         return mapToResponse(updatedStaff);
     }
 
@@ -147,6 +157,8 @@ public class StaffService {
         user.setStatus("INACTIVE");
         staffRepository.save(staff);
         userRepository.save(user);
+        
+        auditLogService.logAction("DEACTIVATE_STAFF", "Staff", staff.getId(), "Deactivated staff member: " + user.getFirstName() + " " + user.getLastName());
     }
 
     private Staff getStaffEntityById(Integer id) {

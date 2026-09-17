@@ -14,8 +14,7 @@ export default function AdminRiskRules() {
     ruleName: '',
     thresholdValue: 0,
     description: '',
-    enabled: true,
-    organization: { id: 1 } // Hardcoded for demo, normally dynamic based on org
+    enabled: true
   });
 
   useEffect(() => {
@@ -49,7 +48,7 @@ export default function AdminRiskRules() {
       }
       setShowForm(false);
       setEditingId(null);
-      setFormData({ ruleName: '', thresholdValue: 0, description: '', enabled: true, organization: { id: 1 } });
+      setFormData({ ruleName: '', thresholdValue: 0, description: '', enabled: true });
       fetchRules();
       setError(null);
     } catch (err) {
@@ -64,8 +63,7 @@ export default function AdminRiskRules() {
       ruleName: rule.ruleName,
       thresholdValue: rule.thresholdValue,
       description: rule.description || '',
-      enabled: rule.enabled,
-      organization: rule.organization
+      enabled: rule.enabled
     });
     setShowForm(true);
   };
