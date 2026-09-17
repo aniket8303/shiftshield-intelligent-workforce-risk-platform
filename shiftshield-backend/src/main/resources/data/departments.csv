@@ -1,0 +1,11 @@
+department_id,organization_id,name,description,required_staff,required_senior_staff,criticality
+1,1,ICU,Intensive Care Unit,8,2,CRITICAL
+2,1,Emergency,Emergency Department,10,2,CRITICAL
+3,1,Cardiology,Cardiology Department,6,1,HIGH
+4,1,Pediatrics,Pediatrics Department,6,1,HIGH
+5,1,General Ward,General Ward,8,1,MEDIUM
+6,1,Operation Theatre,Operation Theatre,8,2,CRITICAL
+7,1,Laboratory,Laboratory Services,5,1,MEDIUM
+8,1,Radiology,Radiology Services,5,1,MEDIUM
+9,1,Pharmacy,Pharmacy Services,4,1,MEDIUM
+10,1,Administration,Hospital Administration,5,0,LOW
