@@ -147,8 +147,16 @@ export default function AdminDepartments() {
 
   if (loading) {
     return (
-      <div className="p-8 font-medium text-slate-500">
-        Loading departments...
+      <div className="p-6 lg:p-8 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Department Management</h1>
+            <p className="text-slate-500 text-sm mt-1">Loading departments...</p>
+          </div>
+        </div>
+        <div className="animate-pulse space-y-6">
+          <div className="h-64 bg-slate-100 rounded-xl w-full"></div>
+        </div>
       </div>
     );
   }

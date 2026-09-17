@@ -51,9 +51,21 @@ export default function NursingDashboard() {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[500px] text-slate-400">
-        <Activity className="w-12 h-12 mb-4 animate-spin text-brand-500" />
-        <p className="font-semibold text-lg">Loading Nursing Intelligence...</p>
+      <div className="p-6 lg:p-8 max-w-7xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Nursing Superintendent</h1>
+          <p className="text-slate-500 text-sm mt-1">Loading Nursing Intelligence...</p>
+        </div>
+        <div className="animate-pulse space-y-6">
+          <div className="h-16 bg-slate-100 rounded-xl w-full"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+             <div className="h-28 bg-slate-100 rounded-xl"></div>
+             <div className="h-28 bg-slate-100 rounded-xl"></div>
+             <div className="h-28 bg-slate-100 rounded-xl"></div>
+             <div className="h-28 bg-slate-100 rounded-xl"></div>
+          </div>
+          <div className="h-64 bg-slate-100 rounded-xl w-full"></div>
+        </div>
       </div>
     );
   }

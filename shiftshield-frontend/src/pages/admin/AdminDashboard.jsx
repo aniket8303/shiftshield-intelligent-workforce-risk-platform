@@ -89,8 +89,23 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="p-8 text-slate-500 font-medium">
-        Loading System Dashboard...
+      <div className="p-6 lg:p-8 max-w-7xl mx-auto">
+        <div className="flex items-start justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-800 tracking-tight">System Administration</h1>
+            <p className="text-slate-500 text-sm mt-1">Loading system metrics...</p>
+          </div>
+        </div>
+        <div className="animate-pulse space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+             <div className="h-32 bg-slate-100 rounded-xl"></div>
+             <div className="h-32 bg-slate-100 rounded-xl"></div>
+             <div className="h-32 bg-slate-100 rounded-xl"></div>
+             <div className="h-32 bg-slate-100 rounded-xl"></div>
+             <div className="h-32 bg-slate-100 rounded-xl"></div>
+             <div className="h-32 bg-slate-100 rounded-xl"></div>
+          </div>
+        </div>
       </div>
     );
   }
