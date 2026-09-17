@@ -45,6 +45,8 @@ const EMPLOYMENT_OPTIONS = [
 export default function AdminStaff() {
   const [staff, setStaff] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -65,7 +67,7 @@ export default function AdminStaff() {
 
   useEffect(() => {
     fetchStaffAndDepartments();
-  }, []);
+  }, [page]);
 
   const fetchStaffAndDepartments = async () => {
     try {
@@ -73,11 +75,12 @@ export default function AdminStaff() {
       setError(null);
 
       const [staffRes, deptRes] = await Promise.all([
-        api.get('/staff'),
+        api.get(`/staff?page=${page}&size=20`),
         api.get('/departments')
       ]);
 
-      setStaff(staffRes.data || []);
+      setStaff(staffRes.data.content || []);
+      setTotalPages(staffRes.data.totalPages || 0);
       setDepartments(deptRes.data || []);
     } catch (err) {
       console.error(err);
@@ -951,6 +954,30 @@ export default function AdminStaff() {
           </table>
 
         </div>
+        
+        {/* PAGINATION CONTROLS */}
+        <div className="flex items-center justify-between px-4 py-3 bg-white border-t border-slate-200">
+          <div className="text-sm text-slate-500">
+            Page {page + 1} of {Math.max(1, totalPages)}
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setPage((old) => Math.max(0, old - 1))}
+              disabled={page === 0}
+              className="px-3 py-1 rounded border border-slate-300 text-slate-600 disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setPage((old) => (old + 1 < totalPages ? old + 1 : old))}
+              disabled={page >= totalPages - 1}
+              className="px-3 py-1 rounded border border-slate-300 text-slate-600 disabled:opacity-50"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
       </div>
 
     </div>

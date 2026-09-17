@@ -61,16 +61,11 @@ function App() {
     const fetchAnalytics = async () => {
       setLoading(true);
       try {
-        const [overviewRes, trendsRes, staffingRes, deptsRes] = await Promise.all([
-          api.get('/analytics/overview'),
-          api.get('/analytics/risk-trends'),
-          api.get('/analytics/staffing'),
-          api.get('/analytics/departments')
-        ]);
-        setOverview(overviewRes.data);
-        setRiskTrends(trendsRes.data);
-        setStaffing(staffingRes.data);
-        setDepartments(deptsRes.data);
+        const response = await api.get('/analytics/summary');
+        setOverview(response.data.overview || {});
+        setRiskTrends(response.data.riskTrends || []);
+        setStaffing(response.data.staffing || []);
+        setDepartments(response.data.departments || []);
       } catch (err) {
         console.warn('API fetch failed', err);
         showToast("Error loading analytics data.", "error");

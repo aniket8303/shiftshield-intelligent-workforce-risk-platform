@@ -1,58 +1,66 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import MainDashboard from './pages/MainDashboard';
-import Placeholder from './pages/Placeholder';
-import CeoDashboard from './pages/ceo/CeoDashboard';
-import LandingPage from './pages/public/LandingPage';
-import Platform from './pages/public/Platform';
-import Solutions from './pages/public/Solutions';
-import DepartmentsPublic from './pages/public/DepartmentsPublic';
-import RiskIntelligence from './pages/public/RiskIntelligence';
-import About from './pages/public/About';
-import Contact from './pages/public/Contact';
-import Security from './pages/public/Security';
-import DepartmentDetailPage from './pages/public/DepartmentDetailPage';
-import Support from './pages/public/Support';
-import Login from './components/Login';
-import AppLayout from './components/layout/AppLayout';
-import ProtectedRoute from './components/layout/ProtectedRoute';
+// Lazy Loaded Components
+const MainDashboard = lazy(() => import('./pages/MainDashboard'));
+const Placeholder = lazy(() => import('./pages/Placeholder'));
+const CeoDashboard = lazy(() => import('./pages/ceo/CeoDashboard'));
+const LandingPage = lazy(() => import('./pages/public/LandingPage'));
+const Platform = lazy(() => import('./pages/public/Platform'));
+const Solutions = lazy(() => import('./pages/public/Solutions'));
+const DepartmentsPublic = lazy(() => import('./pages/public/DepartmentsPublic'));
+const RiskIntelligence = lazy(() => import('./pages/public/RiskIntelligence'));
+const About = lazy(() => import('./pages/public/About'));
+const Contact = lazy(() => import('./pages/public/Contact'));
+const Security = lazy(() => import('./pages/public/Security'));
+const DepartmentDetailPage = lazy(() => import('./pages/public/DepartmentDetailPage'));
+const Support = lazy(() => import('./pages/public/Support'));
+const Login = lazy(() => import('./components/Login'));
+const AppLayout = lazy(() => import('./components/layout/AppLayout'));
+const ProtectedRoute = lazy(() => import('./components/layout/ProtectedRoute'));
 
 // New Role Dashboards
-import CooDashboard from './pages/coo/CooDashboard';
-import HrDashboard from './pages/hr/HrDashboard';
-import NursingDashboard from './pages/nursing/NursingDashboard';
-import AuditLogs from './pages/admin/AuditLogs';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminOrganizations from './pages/admin/AdminOrganizations';
-import AdminDepartments from './pages/admin/AdminDepartments';
-import AdminUsers from './pages/admin/AdminUsers';
-import AdminStaff from './pages/admin/AdminStaff';
-import AdminRiskRules from './pages/admin/AdminRiskRules';
-import MyShifts from './pages/staff/MyShifts';
-import StaffDashboard from './pages/staff/StaffDashboard';
-import DepartmentDashboard from './pages/department/DepartmentDashboard';
-import Notifications from './pages/Notifications';
-import ProfileSettings from './pages/ProfileSettings';
+const CooDashboard = lazy(() => import('./pages/coo/CooDashboard'));
+const HrDashboard = lazy(() => import('./pages/hr/HrDashboard'));
+const NursingDashboard = lazy(() => import('./pages/nursing/NursingDashboard'));
+const AuditLogs = lazy(() => import('./pages/admin/AuditLogs'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminOrganizations = lazy(() => import('./pages/admin/AdminOrganizations'));
+const AdminDepartments = lazy(() => import('./pages/admin/AdminDepartments'));
+const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
+const AdminStaff = lazy(() => import('./pages/admin/AdminStaff'));
+const AdminRiskRules = lazy(() => import('./pages/admin/AdminRiskRules'));
+const MyShifts = lazy(() => import('./pages/staff/MyShifts'));
+const StaffDashboard = lazy(() => import('./pages/staff/StaffDashboard'));
+const DepartmentDashboard = lazy(() => import('./pages/department/DepartmentDashboard'));
+const Notifications = lazy(() => import('./pages/Notifications'));
+const ProfileSettings = lazy(() => import('./pages/ProfileSettings'));
 
 // Intelligence Components
-import DepartmentIntelligence from './pages/intelligence/DepartmentIntelligence';
-import AnalyticsIntelligence from './pages/intelligence/AnalyticsIntelligence';
-import WorkforceIntelligence from './pages/intelligence/WorkforceIntelligence';
-import ActionIntelligence from './pages/intelligence/ActionIntelligence';
-import MyWorkload from './pages/staff/MyWorkload';
-import StaffRequests from './pages/staff/StaffRequests';
+const DepartmentIntelligence = lazy(() => import('./pages/intelligence/DepartmentIntelligence'));
+const AnalyticsIntelligence = lazy(() => import('./pages/intelligence/AnalyticsIntelligence'));
+const WorkforceIntelligence = lazy(() => import('./pages/intelligence/WorkforceIntelligence'));
+const ActionIntelligence = lazy(() => import('./pages/intelligence/ActionIntelligence'));
+const MyWorkload = lazy(() => import('./pages/staff/MyWorkload'));
+const StaffRequests = lazy(() => import('./pages/staff/StaffRequests'));
 
 // Supervisor Components
-import SupervisorDashboard from './pages/supervisor/SupervisorDashboard';
-import Schedule7Days from './pages/supervisor/Schedule7Days';
-import ShiftRiskDetail from './pages/supervisor/ShiftRiskDetail';
-import FindReplacement from './pages/supervisor/FindReplacement';
-import Simulator from './pages/supervisor/Simulator';
+const SupervisorDashboard = lazy(() => import('./pages/supervisor/SupervisorDashboard'));
+const Schedule7Days = lazy(() => import('./pages/supervisor/Schedule7Days'));
+const ShiftRiskDetail = lazy(() => import('./pages/supervisor/ShiftRiskDetail'));
+const FindReplacement = lazy(() => import('./pages/supervisor/FindReplacement'));
+const Simulator = lazy(() => import('./pages/supervisor/Simulator'));
 
 export default function App() {
+  const LoadingFallback = () => (
+    <div className="flex items-center justify-center min-h-screen bg-slate-50">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+    </div>
+  );
+
   return (
     <Router>
-      <Routes>
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/platform" element={<Platform />} />
@@ -154,7 +162,8 @@ export default function App() {
 
         {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+        </Routes>
+      </Suspense>
     </Router>
   );
 }
