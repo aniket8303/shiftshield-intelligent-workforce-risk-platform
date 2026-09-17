@@ -1,22 +1,164 @@
-# ShiftShield — Intelligent Hospital Workforce Risk & Decision Support Platform
+# 🏥 ShiftShield — Intelligent Hospital Workforce Risk & Decision Support Platform
 
-> An intelligent hospital workforce and operational risk intelligence platform that transforms staffing, scheduling, workload, and operational data into actionable risk insights and decision support.
+> A full-stack intelligent workforce platform that helps hospitals detect staffing and operational risks, understand their causes, simulate corrective actions, and make auditable workforce decisions.
 
-![Java](https://img.shields.io/badge/Java-17+-orange)
+![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
 ![React](https://img.shields.io/badge/React-18+-61DAFB)
 ![MySQL](https://img.shields.io/badge/MySQL-8+-4479A1)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-green)
 ![Hibernate](https://img.shields.io/badge/Hibernate-JPA-brown)
+![Vercel](https://img.shields.io/badge/Frontend-Vercel-black)
+![Render](https://img.shields.io/badge/Backend-Render-purple)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 ---
 
-## 📌 Overview
+## 🚀 Overview
 
-**ShiftShield** is an intelligent hospital workforce and operational risk intelligence platform designed to help hospitals monitor staffing conditions, identify workforce risks, understand their causes, evaluate corrective actions, and make informed operational decisions.
+**ShiftShield** is an intelligent hospital workforce and operational risk decision-support platform built using **React, Spring Boot, Spring Security, JPA/Hibernate, and MySQL**.
 
-Unlike a traditional CRUD-based staff or hospital management system, ShiftShield focuses on the complete operational decision lifecycle:
+Unlike a traditional hospital management or CRUD application, ShiftShield focuses on the complete operational decision lifecycle:
+
+```text
+Workforce Data
+      ↓
+Risk Detection
+      ↓
+Cause Analysis
+      ↓
+Recommended Action
+      ↓
+What-If Simulation
+      ↓
+Management Decision
+      ↓
+Apply Change
+      ↓
+Risk Recalculation
+      ↓
+Notification
+      ↓
+Audit Trail
+````
+
+The platform helps management understand **what is wrong, why it is happening, what could be done, and what the impact of a proposed change would be before modifying live schedules.**
+
+---
+
+# 🎯 Problem
+
+Hospital workforce planning involves multiple operational constraints:
+
+* Staff availability
+* Department staffing requirements
+* Senior staff coverage
+* Staff skills
+* Workload
+* Working hours
+* Consecutive shifts
+* Minimum rest periods
+* Shift assignments
+
+Traditional CRUD systems can store this information, but they generally do not answer:
+
+> **"What is the operational risk, why does it exist, and what happens if we change the current staffing plan?"**
+
+ShiftShield is designed around this decision-support problem.
+
+---
+
+# ⭐ Key Features
+
+### 👥 Workforce Management
+
+* Staff management
+* Department management
+* Staff skills
+* Staff availability
+* Workforce status
+* Shift assignments
+
+### 📅 Shift Management
+
+* Shift scheduling
+* Department-specific shifts
+* Staffing requirements
+* Senior staffing requirements
+* Assignment management
+
+### 🧠 Risk Intelligence
+
+The Risk Engine evaluates factors such as:
+
+* Staffing shortage
+* Senior staff coverage
+* Workload
+* Weekly working hours
+* Consecutive shifts
+* Rest periods
+* Required skills
+
+Risk levels:
+
+```text
+LOW
+MEDIUM
+HIGH
+CRITICAL
+```
+
+### ⚙️ Configurable Risk Rules
+
+Risk thresholds are configurable instead of being hardcoded.
+
+Example:
+
+```text
+Minimum Rest              8 hours
+Maximum Consecutive       4 shifts
+Maximum Weekly Hours      48 hours
+Required Senior Staff     2
+Required Staffing         8
+High Workload Threshold   75
+```
+
+### 🔬 What-If Scenario Simulator
+
+A supervisor can simulate a proposed staffing change **without modifying live data**.
+
+Example:
+
+```text
+Current Shift
+
+Required Staff:     8
+Assigned Staff:     6
+
+Senior Required:    2
+Senior Assigned:    1
+
+Risk Score:         78 HIGH
+```
+
+After simulating an eligible staff replacement:
+
+```text
+Assigned Staff:
+6 → 7
+
+Senior Coverage:
+1 → 2
+
+Risk:
+78 HIGH → 48 MEDIUM
+```
+
+Only after the authorized user applies the scenario is the live assignment changed.
+
+---
+
+# 🔄 Core Decision Workflow
 
 ```text
 Monitor
@@ -29,9 +171,9 @@ Recommend Action
    ↓
 Simulate Scenario
    ↓
-Management Decision
+Human Decision
    ↓
-Apply Change
+Apply Approved Change
    ↓
 Recalculate Risk
    ↓
@@ -40,365 +182,24 @@ Notify Stakeholders
 Audit Trail
 ```
 
-The goal of ShiftShield is to transform workforce data into actionable, explainable, and auditable operational intelligence.
+This makes ShiftShield more than a CRUD application by connecting operational data with **risk analysis and decision support**.
 
 ---
 
-# 🎯 Problem Statement
-
-Hospitals operate with complex workforce constraints involving:
-
-- Staff availability
-- Department requirements
-- Shift schedules
-- Staff skills
-- Senior staff coverage
-- Workload
-- Working hours
-- Consecutive shifts
-- Minimum rest periods
-- Staffing requirements
-- Emergency workforce conditions
-
-Traditional management applications mainly provide CRUD functionality:
-
-```text
-Create → Read → Update → Delete
-```
-
-However, CRUD alone does not answer important operational questions such as:
-
-- Is the current shift adequately staffed?
-- Is senior staff coverage sufficient?
-- Is the workload too high?
-- Are employees approaching working-hour limits?
-- Is a staff member eligible for a particular shift?
-- What is causing the current operational risk?
-- What happens if another employee is assigned?
-- Will the proposed change reduce the risk?
-- Who approved the operational change?
-- What changed after the decision?
-
-ShiftShield addresses these problems through an operational risk intelligence and decision-support workflow.
-
----
-
-# 🚀 Core Features
-
-## 1. Workforce Management
-
-Manage:
-
-- Hospital organizations
-- Departments
-- Staff
-- Staff roles
-- Staff skills
-- Staff availability
-- Workforce status
-
----
-
-## 2. Shift Management
-
-Manage:
-
-- Shift schedules
-- Shift types
-- Required staffing
-- Required senior staffing
-- Shift assignments
-- Department-specific schedules
-
----
-
-## 3. Workload Intelligence
-
-Analyze workforce workload using information such as:
-
-- Workload score
-- Workload level
-- Weekly working hours
-- Shift frequency
-- Consecutive shifts
-- Rest periods
-
----
-
-## 4. Configurable Risk Rules
-
-Operational risk rules are configurable instead of being hardcoded throughout the application.
-
-Example configuration:
-
-```text
-Minimum Rest                  8 hours
-Maximum Consecutive Shifts    4
-Maximum Weekly Hours          48 hours
-Required Senior Staff         2
-Required Staffing             8
-High Workload Threshold       75
-```
-
-This allows operational policies and thresholds to be changed without redesigning the complete business logic.
-
----
-
-# 🧠 Risk Intelligence Engine
-
-The **Risk Engine** is the core business component of ShiftShield.
-
-It evaluates operational conditions such as:
-
-```text
-Staffing Level
-      +
-Senior Coverage
-      +
-Workload
-      +
-Working Hours
-      +
-Rest Period
-      +
-Consecutive Shifts
-      +
-Required Skills
-      ↓
-Risk Evaluation
-      ↓
-Risk Score
-      ↓
-Risk Level
-      ↓
-Risk Explanation
-```
-
-Risk levels include:
-
-```text
-LOW
-MEDIUM
-HIGH
-CRITICAL
-```
-
-The system does not only display a risk score.
-
-It also provides the contributing operational factors behind the risk.
-
-### Example
-
-```text
-ICU Night Shift
-
-Required Staff:       8
-Assigned Staff:       6
-
-Senior Required:      2
-Senior Assigned:      1
-
-Workload:              HIGH
-
-Risk Score:            78
-Risk Level:            HIGH
-```
-
-Possible contributing factors:
-
-- Staffing below requirement
-- Insufficient senior coverage
-- High workload
-
----
-
-# 🔬 Shift Scenario Simulator
-
-One of the major features of ShiftShield is the **What-If Shift Scenario Simulator**.
-
-Instead of immediately modifying the live schedule, a supervisor can first evaluate the potential impact of a proposed action.
-
-### Current Situation
-
-```text
-Required Staff:     8
-Assigned Staff:     6
-
-Senior Required:    2
-Senior Assigned:     1
-
-Risk Score:         78
-Risk Level:         HIGH
-```
-
-### Proposed Scenario
-
-Suppose an eligible staff member is selected:
-
-```text
-Candidate:
-Priya Sharma
-```
-
-The system simulates the proposed assignment.
-
-### Simulated Result
-
-```text
-Assigned Staff:
-6 → 7
-
-Senior Coverage:
-1/2 → 2/2
-
-Risk:
-78 HIGH → 48 MEDIUM
-```
-
-The live database is not changed during simulation.
-
-Only after the authorized user approves the scenario is the actual change applied.
-
-```text
-Simulation
-     ↓
-Evaluate Impact
-     ↓
-Supervisor Decision
-     ↓
-Apply Scenario
-     ↓
-Update Assignment
-     ↓
-Recalculate Risk
-     ↓
-Generate Notification
-     ↓
-Create Audit Log
-```
-
----
-
-# 👤 Role-Based Command Centers
-
-ShiftShield provides role-specific operational interfaces.
-
-## CEO
-
-Focuses on enterprise-level intelligence:
-
-- Dashboard
-- Risk Overview
-- Departments
-- Analytics
-- Reports
-
----
-
-## COO
-
-Focuses on operational decision-making:
-
-- Dashboard
-- Risk Overview
-- Actions
-- Departments
-- Reports
-
----
-
-## HR
-
-Focuses on workforce management:
-
-- Dashboard
-- Staff Management
-- Workforce
-- Shifts
-- Risks
-
----
-
-## Nursing Superintendent
-
-Focuses on nursing operations:
-
-- Dashboard
-- Nursing Staff
-- Shifts
-- Risk Overview
-- Analytics
-
----
-
-## Department Head
-
-Focuses on department-level operations:
-
-- Dashboard
-- Department Staff
-- Shifts
-- Assignments
-- Risk Overview
-- Analytics
-
----
-
-## Supervisor
-
-Focuses on immediate operational actions:
-
-- Dashboard
-- Today
-- Shifts
-- Assignments
-- Risk Overview
-- Scenario Simulator
-- Notifications
-
----
-
-## Staff
-
-Focuses on personal workforce information:
-
-- Dashboard
-- My Shifts
-- Hours This Week
-- My Workload
-- My Requests
-- Notifications
-
----
-
-## System Administrator
-
-Manages system configuration:
-
-- Dashboard
-- Organizations
-- Users
-- Departments
-- Staff
-- Configuration
-- Risk Rules
-- Audit Logs
-
----
-
-# 🔐 Security Architecture
-
-ShiftShield uses:
-
-- Spring Security
-- JWT Authentication
-- Role-Based Access Control
-- BCrypt password hashing
-- Backend authorization
-- Organization-level data isolation
-- Request validation
-- Controlled operational actions
-- Audit logging
+# 🔐 Security
+
+Implemented using **Spring Security + JWT**.
+
+### Security features
+
+* JWT authentication
+* BCrypt password hashing
+* Role-Based Access Control
+* Backend authorization
+* Organization-level data isolation
+* Request validation
+* Protected administrative APIs
+* Audit logging
 
 ### Authentication Flow
 
@@ -413,7 +214,7 @@ Frontend
   ↓
 Authorization Header
   ↓
-JWT Authentication Filter
+JWT Filter
   ↓
 SecurityContext
   ↓
@@ -422,298 +223,197 @@ Authorization
 Protected API
 ```
 
-### Authentication vs Authorization
-
-```text
-Authentication
-→ Who are you?
-
-Authorization
-→ What are you allowed to access?
-```
-
-Frontend route protection improves user experience, while actual authorization is enforced by the backend.
+Backend authorization is enforced independently of frontend route visibility.
 
 ---
 
-# 🏢 Multi-Tenant Architecture
+# 🏢 Multi-Tenant Design
 
-ShiftShield is designed with organization-level data isolation.
-
-Example:
+ShiftShield supports organization-level data isolation.
 
 ```text
 Hospital A
  ├── Departments
  ├── Staff
  ├── Shifts
- └── Risks
+ └── Risk Assessments
 
 Hospital B
  ├── Departments
  ├── Staff
  ├── Shifts
- └── Risks
+ └── Risk Assessments
 ```
 
-Hospital A should not be able to access Hospital B's operational data.
-
-The backend is responsible for enforcing organization-level access rather than relying only on frontend visibility.
+Backend access rules ensure that one organization cannot access another organization's operational data.
 
 ---
 
-# 🏗️ System Architecture
+# ⚡ Performance Engineering
+
+The application includes performance optimizations across the frontend, backend, and database.
+
+### Frontend
+
+* React route-level code splitting
+* Vite vendor chunk splitting
+* Reduced duplicate API requests
+* Progressive loading
+* Skeleton loading states
+* Efficient data fetching
+
+### Backend
+
+* JPA `@EntityGraph` for frequently accessed relationships
+* DTO-based responses
+* Server-side pagination
+* Optimized repository queries
+* Reduced unnecessary entity loading
+* HikariCP connection pool tuning
+
+### Database
+
+* Indexes on frequently queried fields
+* Indexed foreign keys
+* Efficient filtering and lookup
+* Pagination for high-volume datasets
+
+---
+
+# 🚀 Production Startup Optimization
+
+Large synthetic datasets are separated from essential application startup.
+
+### EssentialDataInitializer
+
+Loads lightweight configuration:
 
 ```text
-                    USERS
+Organizations
+Departments
+Core Demo Users
+Risk Rules
+```
+
+### DemoDataLoaderService
+
+Handles large demonstration datasets:
+
+```text
+Staff
+Shifts
+Shift Assignments
+Audit Logs
+```
+
+Demo data can be explicitly imported through a protected admin API:
+
+```http
+POST /api/admin/demo-data/import
+```
+
+This prevents large CSV processing from blocking application startup.
+
+---
+
+# 🏗️ Architecture
+
+```text
+                    Users
                       │
                       ▼
-              React + Vite
+               React + Vite
                       │
-                   Axios
+                    Axios
                       │
-                 REST API
+                   REST API
                       │
                       ▼
           ┌────────────────────────┐
-          │      Spring Boot      │
+          │      Spring Boot       │
           │                        │
           │ Controllers            │
           │ Services               │
-          │ Security               │
+          │ Spring Security        │
+          │ JWT                    │
           │ Risk Engine            │
           │ Validation             │
-          │ Exception Handling     │
-          └───────────┬────────────┘
-                      │
-                 JPA / Hibernate
+          └────────────┬───────────┘
+                       │
+                  JPA / Hibernate
+                       │
+                       ▼
+                    MySQL
+```
+
+### Production Deployment
+
+```text
+                   Internet
                       │
                       ▼
-                   MySQL
+              ┌───────────────┐
+              │    Vercel     │
+              │ React + Vite  │
+              └───────┬───────┘
+                      │
+                     HTTPS
+                      │
+                      ▼
+              ┌───────────────┐
+              │    Render     │
+              │ Spring Boot   │
+              └───────┬───────┘
+                      │
+                   JDBC / SSL
+                      │
+                      ▼
+              ┌───────────────┐
+              │     Aiven     │
+              │     MySQL     │
+              └───────────────┘
 ```
 
 ---
 
-# 💻 Technology Stack
+# 🛠️ Technology Stack
 
-## Frontend
-
-- React
-- Vite
-- JavaScript
-- React Router
-- Axios
-- Tailwind CSS / CSS
-- Recharts
-- Lucide Icons
-
-## Backend
-
-- Java
-- Spring Boot
-- Spring MVC
-- Spring Security
-- JWT
-- Spring Data JPA
-- Hibernate
-- Bean Validation
-- REST APIs
-
-## Database
-
-- MySQL
-
-## Development Tools
-
-- Git
-- GitHub
-- VS Code
-- IntelliJ IDEA / Eclipse
-- Postman
-- Maven
-
-## Deployment
-
-- Vercel for frontend
-- Cloud hosting for Spring Boot backend
-- Cloud-hosted relational database
+| Layer           | Technologies                                 |
+| --------------- | -------------------------------------------- |
+| Frontend        | React, Vite, JavaScript, React Router, Axios |
+| UI              | CSS, Tailwind CSS, Recharts, Lucide          |
+| Backend         | Java 17, Spring Boot, Spring MVC             |
+| Security        | Spring Security, JWT, BCrypt                 |
+| Persistence     | Spring Data JPA, Hibernate                   |
+| Database        | MySQL                                        |
+| API             | REST                                         |
+| Build           | Maven, Vite                                  |
+| Version Control | Git, GitHub                                  |
+| Testing/API     | Postman                                      |
+| Deployment      | Vercel, Render, Aiven                        |
 
 ---
 
-# 🗄️ Database Design
+# 👤 Role-Based Command Centers
 
-Major entities include:
+ShiftShield provides different interfaces according to organizational responsibility.
 
-```text
-organizations
-users
-hospital_configurations
-departments
-staff
-skills
-staff_skills
-staff_availability
-shifts
-shift_assignments
-workload_records
-risk_rules
-risk_assessments
-notifications
-shift_change_requests
-simulation_scenarios
-scenario_changes
-audit_logs
-```
-
-### Entity Relationship Overview
-
-```text
-Organization
-     │
-     ├──────── Departments
-     │              │
-     │              └──────── Staff
-     │                          │
-     │                          ├── Skills
-     │                          └── Availability
-     │
-     └──────── Users
-
-Department
-     │
-     └──────── Shifts
-                  │
-                  └──────── Shift Assignments
-                                │
-                                └──────── Staff
-
-Shift
-  │
-  ├── Workload
-  │
-  └── Risk Assessment
-             │
-             └── Scenario Simulation
-                         │
-                         ├── Scenario Changes
-                         └── Audit Log
-```
+| Role                   | Main Responsibility                      |
+| ---------------------- | ---------------------------------------- |
+| CEO                    | Enterprise risk and analytics            |
+| COO                    | Operational decisions and actions        |
+| HR                     | Workforce and staff management           |
+| Nursing Superintendent | Nursing operations                       |
+| Department Head        | Department-level workforce operations    |
+| Supervisor             | Shift management and scenario simulation |
+| Staff                  | Personal shifts, workload and requests   |
+| System Admin           | System configuration and governance      |
 
 ---
 
-# 🔄 Backend Request Flow
+# 📊 Example Use Case
 
-A typical request follows this architecture:
-
-```text
-React
-  ↓
-Axios
-  ↓
-HTTP Request
-  ↓
-JWT Filter
-  ↓
-Authentication
-  ↓
-Authorization
-  ↓
-Controller
-  ↓
-DTO Validation
-  ↓
-Service Layer
-  ↓
-Risk Engine / Business Logic
-  ↓
-Repository
-  ↓
-JPA / Hibernate
-  ↓
-MySQL
-```
-
-The response travels back through the same layers:
-
-```text
-MySQL
-  ↓
-Hibernate
-  ↓
-Repository
-  ↓
-Service
-  ↓
-Controller
-  ↓
-JSON Response
-  ↓
-Axios
-  ↓
-React
-```
-
----
-
-# 📁 Project Structure
-
-```text
-ShiftShield/
-│
-├── shiftshield-backend/
-│   │
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   │   └── com/
-│   │   │   │       └── shiftshield/
-│   │   │   │           ├── controller/
-│   │   │   │           ├── service/
-│   │   │   │           ├── repository/
-│   │   │   │           ├── entity/
-│   │   │   │           ├── dto/
-│   │   │   │           ├── security/
-│   │   │   │           ├── risk/
-│   │   │   │           ├── exception/
-│   │   │   │           └── config/
-│   │   │   │
-│   │   │   └── resources/
-│   │   │       └── application.properties
-│   │   │
-│   │   └── test/
-│   │
-│   └── pom.xml
-│
-├── shiftshield-frontend/
-│   │
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── layouts/
-│   │   ├── services/
-│   │   ├── hooks/
-│   │   ├── routes/
-│   │   └── App.jsx
-│   │
-│   └── package.json
-│
-├── database/
-│   └── dataset/
-│
-├── docs/
-│   ├── architecture/
-│   ├── api/
-│   └── screenshots/
-│
-├── .gitignore
-└── README.md
-```
-
----
-
-# 📊 Example Operational Scenario
-
-## ICU Night Shift
+### ICU Night Shift
 
 ```text
 Required Staff       = 8
@@ -728,271 +428,195 @@ Risk Score            = 78
 Risk Level            = HIGH
 ```
 
-The supervisor selects an eligible staff member:
+The supervisor identifies an eligible staff member and runs a simulation.
 
 ```text
-Priya Sharma
+Before:
+Assigned Staff = 6
+Senior Staff   = 1
+Risk           = 78 HIGH
+
+        ↓ Simulation
+
+After:
+Assigned Staff = 7
+Senior Staff   = 2
+Risk           = 48 MEDIUM
 ```
 
-### Simulation
+The scenario is then reviewed and can be explicitly applied.
 
 ```text
-Staff:
-6 → 7
-
-Senior Coverage:
-1 → 2
-
-Risk:
-78 HIGH
-   ↓
-48 MEDIUM
-```
-
-The supervisor reviews the impact and applies the scenario.
-
-After application:
-
-```text
+Apply Scenario
+      ↓
 Assignment Updated
-       ↓
+      ↓
 Risk Recalculated
-       ↓
+      ↓
 Notification Created
-       ↓
+      ↓
 Audit Log Created
-       ↓
-Updated Staff View
 ```
-
-This demonstrates the complete ShiftShield decision-support lifecycle.
 
 ---
 
-# 🧪 Testing Strategy
+# 📁 Project Structure
 
-Testing can be performed at multiple levels.
+```text
+ShiftShield/
+│
+├── shiftshield-backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/shiftshield/
+│   │   │   │   ├── controller/
+│   │   │   │   ├── service/
+│   │   │   │   ├── repository/
+│   │   │   │   ├── entity/
+│   │   │   │   ├── dto/
+│   │   │   │   ├── security/
+│   │   │   │   ├── risk/
+│   │   │   │   └── config/
+│   │   │   └── resources/
+│   │   │       └── data/
+│   │   └── test/
+│   ├── Dockerfile
+│   └── pom.xml
+│
+├── shiftshield-frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── layouts/
+│   │   ├── services/
+│   │   ├── hooks/
+│   │   └── routes/
+│   ├── vite.config.js
+│   └── package.json
+│
+├── database/
+├── docs/
+├── .gitignore
+└── README.md
+```
 
-## Backend
+---
 
-- Unit testing
-- Service testing
-- Controller/API testing
-- Security testing
-- Validation testing
-- Risk Engine testing
+# 🧪 Testing
 
-## Frontend
+The project can be tested at multiple levels.
 
-- Component testing
-- API integration testing
-- Route testing
-- Role-based UI testing
+### Backend
 
-## End-to-End
+* REST API testing
+* Service testing
+* Repository testing
+* Security testing
+* Validation testing
+* Risk Engine testing
 
-Primary workflow:
+### Frontend
+
+* Component testing
+* Route testing
+* API integration testing
+* Role-based UI testing
+
+### End-to-End Workflow
 
 ```text
 Supervisor Login
       ↓
-ICU Risk
+Risk Overview
       ↓
-Risk = 78 HIGH
+Identify High-Risk Shift
       ↓
 Find Eligible Staff
       ↓
 Run Simulation
       ↓
-Risk = 48 MEDIUM
+Evaluate New Risk
       ↓
 Apply Scenario
+      ↓
+Risk Recalculation
       ↓
 Notification
       ↓
 Audit Log
       ↓
-Staff Login
-      ↓
-Updated Shift
+Staff Updated View
 ```
 
 ---
 
-# 🛡️ Security Considerations
+# 🌐 Deployment
 
-The application is designed with the following security principles:
+### Frontend
 
-- JWT-based authentication
-- BCrypt password hashing
-- Role-based authorization
-- Backend API protection
-- Organization-level data isolation
-- Input validation
-- Controlled operational actions
-- Audit logging
-- Environment-based configuration for secrets
+Deployed using **Vercel**.
 
-Sensitive credentials should never be committed to the repository.
+### Backend
 
----
+Deployed using **Render**.
 
-# 📈 Future Scope
+### Database
 
-ShiftShield can be extended with predictive intelligence and additional enterprise capabilities.
+Hosted using **Aiven MySQL**.
 
-## Predictive Workforce Risk
-
-Historical workforce data can be used to predict:
-
-- Future staffing shortages
-- Overtime risk
-- Absence risk
-- Workload spikes
-- Department demand
-
-Possible architecture:
+### Health Check
 
 ```text
-Historical Data
-      ↓
-Feature Engineering
-      ↓
-Machine Learning Model
-      ↓
-Predicted Risk
-      ↓
-Risk Engine
-      ↓
-Decision Support
+GET /actuator/health
 ```
+
+The backend exposes a lightweight health endpoint for deployment monitoring.
+
+> Note: The Render Free tier can spin down after inactivity, so the first backend request after a period of inactivity may take longer than subsequent requests.
 
 ---
 
-## Additional Future Features
+# 🎓 What This Project Demonstrates
 
-- Automated demand forecasting
-- Staff absence prediction
-- Intelligent shift recommendations
-- Optimization-based scheduling
-- Real-time hospital integrations
-- Advanced analytics
-- Mobile application
-- Email/SMS notifications
-- Redis caching
-- Message queues
-- Kubernetes-based deployment
-- Centralized monitoring and observability
+This project demonstrates practical experience with:
 
----
-
-# 🎓 Academic & Placement Project Value
-
-ShiftShield demonstrates practical implementation of:
-
-- Full-stack development
-- Java
-- Spring Boot
-- REST API design
-- Spring Security
-- JWT
-- Role-Based Access Control
-- JPA/Hibernate
-- MySQL
-- React
-- React Router
-- Database design
-- Business logic
-- Configurable rule engines
-- Operational risk intelligence
-- Decision-support systems
-- What-if simulation
-- Audit logging
-- Multi-tenant architecture
-- API integration
-- Deployment
+* Java backend development
+* Spring Boot
+* REST API development
+* Spring Security
+* JWT authentication
+* Role-Based Access Control
+* JPA/Hibernate
+* MySQL database design
+* React frontend development
+* API integration
+* Configurable business rules
+* Risk calculation
+* Decision-support systems
+* What-if simulation
+* Multi-tenant architecture
+* Audit logging
+* Database optimization
+* API performance optimization
+* Cloud deployment
 
 ---
 
-# 🧩 Why ShiftShield Is Not Just CRUD
+# 🔮 Future Scope
 
-CRUD is used as the foundation for managing master and operational data such as:
+Potential extensions include:
 
-```text
-Staff
-Departments
-Shifts
-Assignments
-Skills
-```
-
-However, the primary business workflow is:
-
-```text
-Data
- ↓
-Risk Evaluation
- ↓
-Risk Explanation
- ↓
-Recommended Action
- ↓
-Scenario Simulation
- ↓
-Human Decision
- ↓
-Apply Approved Action
- ↓
-Risk Recalculation
- ↓
-Notification
- ↓
-Audit Trail
-```
-
-The key differentiator is the ability to evaluate the operational impact of a proposed workforce decision before modifying live scheduling data.
-
----
-
-# 🔍 Key Engineering Concepts Demonstrated
-
-## Separation of Concerns
-
-```text
-Controller
-    ↓
-Service
-    ↓
-Repository
-    ↓
-Database
-```
-
-Business logic is separated from HTTP handling and persistence.
-
-## Dependency Injection
-
-Spring manages application dependencies through its IoC container.
-
-## ORM
-
-JPA/Hibernate maps Java entities to relational database tables.
-
-## REST Architecture
-
-Frontend and backend communicate through RESTful HTTP APIs.
-
-## Security
-
-JWT and Spring Security protect backend resources.
-
-## Decision Support
-
-The Risk Engine and Scenario Simulator support operational decisions.
-
-## Auditability
-
-Important operational changes are recorded for traceability.
+* Machine-learning-based workforce risk prediction
+* Staff absence prediction
+* Demand forecasting
+* Intelligent shift recommendations
+* Optimization-based scheduling
+* Real-time hospital integrations
+* Redis caching
+* Message queues
+* Advanced analytics
+* Mobile application
+* Centralized monitoring and observability
 
 ---
 
@@ -1000,9 +624,19 @@ Important operational changes are recorded for traceability.
 
 **Aniket Pandurang Parekar**
 
-Final Year B.E. Computer Engineering  
-P.E.S. Modern College of Engineering, Pune  
+Final Year B.E. Computer Engineering
+P.E.S. Modern College of Engineering, Pune
 Savitribai Phule Pune University
+
+### Technologies I worked with
+
+```text
+Java • Spring Boot • Spring Security • JWT
+React • JavaScript • REST APIs
+JPA • Hibernate • MySQL
+Git • GitHub • Docker
+Vercel • Render • Aiven
+```
 
 ---
 
@@ -1016,42 +650,27 @@ Operational decisions should remain under appropriate human supervision.
 
 ---
 
-# ⭐ Core Concept
-
-The central idea behind ShiftShield is:
-
-```text
-             DATA
-               ↓
-           ANALYSIS
-               ↓
-        RISK DETECTION
-               ↓
-       CAUSE EXPLANATION
-               ↓
-      RECOMMENDED ACTION
-               ↓
-          SIMULATION
-               ↓
-       HUMAN DECISION
-               ↓
-            APPLY
-               ↓
-       RISK RECALCULATION
-               ↓
-          NOTIFICATION
-               ↓
-          AUDIT TRAIL
-```
-
-> **ShiftShield transforms hospital workforce data into explainable, actionable, and auditable operational decisions.**
-
----
-
-## 📜 License
+# 📜 License
 
 This project is licensed under the **MIT License**.
 
-Copyright (c) 2026 Aniket Parekar.
+Copyright (c) 2026 Aniket Pandurang Parekar.
 
-See the `LICENSE` file for details.
+---
+
+## ⭐ Project Vision
+
+> **ShiftShield transforms hospital workforce data into explainable, actionable, and auditable operational decisions.**
+
+```
+
+### Why this version is better for recruiters
+
+I deliberately made it **shorter and more outcome-focused** than your previous README. A recruiter can understand within the first few sections:
+
+**What is it? → What problem does it solve? → What makes it different? → How does it work? → What technologies did you use? → Can you actually deploy it?**
+
+I also avoided putting unverified performance numbers such as "`<500ms`" in the README. Since you're actively optimizing the 5–6 second navigation issue, it's better to add measured numbers later under **Performance** once you have actual before/after measurements.
+
+One thing I'd strongly recommend after pasting it: add **3–5 screenshots/GIFs** near the top (Dashboard, Risk Overview, Simulator, and Staff view). For a recruiter, that can communicate the quality of your project much faster than another 500 lines of documentation.
+```
