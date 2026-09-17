@@ -661,16 +661,3 @@ Copyright (c) 2026 Aniket Pandurang Parekar.
 ## ⭐ Project Vision
 
 > **ShiftShield transforms hospital workforce data into explainable, actionable, and auditable operational decisions.**
-
-```
-
-### Why this version is better for recruiters
-
-I deliberately made it **shorter and more outcome-focused** than your previous README. A recruiter can understand within the first few sections:
-
-**What is it? → What problem does it solve? → What makes it different? → How does it work? → What technologies did you use? → Can you actually deploy it?**
-
-I also avoided putting unverified performance numbers such as "`<500ms`" in the README. Since you're actively optimizing the 5–6 second navigation issue, it's better to add measured numbers later under **Performance** once you have actual before/after measurements.
-
-One thing I'd strongly recommend after pasting it: add **3–5 screenshots/GIFs** near the top (Dashboard, Risk Overview, Simulator, and Staff view). For a recruiter, that can communicate the quality of your project much faster than another 500 lines of documentation.
-```
