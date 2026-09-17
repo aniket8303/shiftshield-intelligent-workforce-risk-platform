@@ -1,6 +1,7 @@
 package com.shiftshield.controller;
 
 import com.shiftshield.dto.AnalyticsResponse;
+import com.shiftshield.dto.DashboardSummaryDTO;
 import com.shiftshield.service.AnalyticsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,11 @@ public class AnalyticsController {
 
     public AnalyticsController(AnalyticsService analyticsService) {
         this.analyticsService = analyticsService;
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<DashboardSummaryDTO> getDashboardSummary() {
+        return ResponseEntity.ok(analyticsService.getDashboardSummary());
     }
 
     @GetMapping("/overview")

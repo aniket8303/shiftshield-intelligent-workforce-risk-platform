@@ -10,6 +10,8 @@ import com.shiftshield.repository.DepartmentRepository;
 import com.shiftshield.repository.StaffRepository;
 import com.shiftshield.repository.UserRepository;
 import com.shiftshield.security.SecurityUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,22 +43,16 @@ public class StaffService {
         this.auditLogService = auditLogService;
     }
 
-    public List<StaffResponse> getAllStaff() {
+    public Page<StaffResponse> getAllStaff(Pageable pageable) {
         Integer orgId = securityUtils.getCurrentOrganizationId();
-        return staffRepository.findByOrganizationId(orgId)
-                .stream()
-                .filter(staff -> "STAFF".equals(staff.getUser().getRole()))
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+        return staffRepository.findByOrganizationId(orgId, pageable)
+                .map(this::mapToResponse);
     }
 
-    public List<StaffResponse> getStaffByDepartment(Integer departmentId) {
+    public Page<StaffResponse> getStaffByDepartment(Integer departmentId, Pageable pageable) {
         Integer orgId = securityUtils.getCurrentOrganizationId();
-        return staffRepository.findByOrganizationIdAndDepartmentId(orgId, departmentId)
-                .stream()
-                .filter(staff -> "STAFF".equals(staff.getUser().getRole()))
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+        return staffRepository.findByOrganizationIdAndDepartmentId(orgId, departmentId, pageable)
+                .map(this::mapToResponse);
     }
 
     public StaffResponse getStaffById(Integer id) {

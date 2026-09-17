@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/staff")
 public class StaffController {
 
@@ -21,13 +23,14 @@ public class StaffController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StaffResponse>> getAllStaff(
-            @RequestParam(required = false) Integer departmentId) {
+    public ResponseEntity<Page<StaffResponse>> getAllStaff(
+            @RequestParam(required = false) Integer departmentId,
+            Pageable pageable) {
         
         if (departmentId != null) {
-            return ResponseEntity.ok(staffService.getStaffByDepartment(departmentId));
+            return ResponseEntity.ok(staffService.getStaffByDepartment(departmentId, pageable));
         }
-        return ResponseEntity.ok(staffService.getAllStaff());
+        return ResponseEntity.ok(staffService.getAllStaff(pageable));
     }
 
     @GetMapping("/{id}")
