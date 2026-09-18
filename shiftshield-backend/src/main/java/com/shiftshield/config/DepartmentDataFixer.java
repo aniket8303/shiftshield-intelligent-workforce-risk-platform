@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+//@Component // Disabled to optimize production startup
 public class DepartmentDataFixer implements CommandLineRunner {
 
     private final DepartmentRepository departmentRepository;

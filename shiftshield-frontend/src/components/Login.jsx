@@ -62,7 +62,9 @@ export default function Login() {
       }
     } catch (err) {
       console.error('Login error', err);
-      if (err.response) {
+      if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
+        setError('Server is waking up from sleep. Please wait a moment and try again.');
+      } else if (err.response) {
         if (err.response.status === 401) {
           setError('Invalid email or password.');
         } else if (err.response.status === 403) {

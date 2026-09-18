@@ -8,16 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
 
 @Configuration
 public class EssentialDataInitializer {
@@ -36,101 +27,56 @@ public class EssentialDataInitializer {
                 return; // Data already seeded
             }
 
-            System.out.println("⏳ Starting Data Initialization from CSV...");
+            System.out.println("⏳ Starting Minimal Core Data Initialization...");
 
-            // 1. ORGANIZATIONS
-            Map<Integer, Organization> orgMap = new HashMap<>();
-            try (BufferedReader br = readCsv("organizations.csv")) {
-                br.readLine(); // skip header
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] cols = line.split(",");
-                    Organization org = new Organization();
-                    org.setName(cols[1]);
-                    org.setHospitalCode(cols[2]);
-                    org.setLocation(cols[3] + ", " + cols[4] + ", " + cols[5]);
-                    org.setStatus(cols[7]);
-                    org = orgRepo.save(org);
-                    orgMap.put(Integer.parseInt(cols[0]), org);
-                }
-            }
-            Organization defaultOrg = orgMap.values().iterator().next();
+            // 1. DEFAULT ORGANIZATION
+            Organization org = new Organization();
+            org.setName("Metropolis General Hospital");
+            org.setHospitalCode("MGH-001");
+            org.setLocation("123 Health Ave, New York, NY");
+            org.setStatus("ACTIVE");
+            Organization defaultOrg = orgRepo.save(org);
 
-            // 2. DEPARTMENTS
-            Map<Integer, Department> deptMap = new HashMap<>();
-            try (BufferedReader br = readCsv("departments.csv")) {
-                br.readLine();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] cols = line.split(",");
-                    Department dept = new Department();
-                    dept.setOrganization(defaultOrg);
-                    dept.setName(cols[2]);
-                    dept.setCode(cols[2].replaceAll("\\s+", "").toUpperCase());
-                    dept = deptRepo.save(dept);
-                    deptMap.put(Integer.parseInt(cols[0]), dept);
-                }
+            // 2. ESSENTIAL DEPARTMENTS
+            List<String> deptNames = List.of(
+                    "ICU", "EMERGENCY", "CARDIOLOGY", "PEDIATRICS", "GENERAL WARD",
+                    "OPERATION THEATRE", "LABORATORY", "RADIOLOGY", "PHARMACY", "ADMINISTRATION"
+            );
+
+            for (String deptName : deptNames) {
+                Department dept = new Department();
+                dept.setOrganization(defaultOrg);
+                dept.setName(deptName);
+                dept.setCode(deptName.replaceAll("\\s+", "").toUpperCase());
+                dept.setDescription(deptName + " Department");
+                deptRepo.save(dept);
             }
 
-            // 3. USERS
-            Map<Integer, User> userMap = new HashMap<>();
-            try (BufferedReader br = readCsv("users.csv")) {
-                br.readLine();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    String[] cols = line.split(",");
-                    User user = new User();
-                    user.setOrganization(defaultOrg);
-                    user.setEmail(cols[2]);
-                    String[] names = cols[3].split(" ", 2);
-                    user.setFirstName(names[0]);
-                    user.setLastName(names.length > 1 ? names[1] : "");
-                    user.setRole(cols[4]);
-                    user.setStatus(cols[6]);
-                    user.setPhone("555-010" + cols[0]);
+            // 3. ESSENTIAL USERS
+            createUser(userRepo, defaultOrg, passwordEncoder, "System", "Admin", "admin@shiftshield.com", "Admin@123", "SYSTEM_ADMIN", "555-0101");
+            createUser(userRepo, defaultOrg, passwordEncoder, "Sarah", "CEO", "ceo@shiftshield.com", "CEO@123", "CEO", "555-0102");
+            createUser(userRepo, defaultOrg, passwordEncoder, "Mark", "COO", "coo@shiftshield.com", "COO@123", "COO", "555-0103");
+            createUser(userRepo, defaultOrg, passwordEncoder, "Elena", "HR", "hr@shiftshield.com", "HR@123", "HR", "555-0104");
+            createUser(userRepo, defaultOrg, passwordEncoder, "John", "Nursing", "nursing@shiftshield.com", "Nurse@123", "NURSING_SUPERINTENDENT", "555-0105");
+            createUser(userRepo, defaultOrg, passwordEncoder, "Dr. Alice", "ICU", "head.icu@shiftshield.com", "Dept@123", "DEPARTMENT_HEAD", "555-0106");
+            createUser(userRepo, defaultOrg, passwordEncoder, "Tom", "Supervisor", "supervisor@shiftshield.com", "Supervisor@123", "SUPERVISOR", "555-0107");
+            createUser(userRepo, defaultOrg, passwordEncoder, "Priya", "Staff", "priya@shiftshield.com", "Staff@123", "STAFF", "555-0108");
 
-                    // Assign passwords according to user role logic requested by prompt
-                    if (user.getEmail().equals("admin@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("Admin@123"));
-                    else if (user.getEmail().equals("ceo@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("CEO@123"));
-                    else if (user.getEmail().equals("coo@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("COO@123"));
-                    else if (user.getEmail().equals("hr@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("HR@123"));
-                    else if (user.getEmail().equals("nursing@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("Nurse@123"));
-                    else if (user.getEmail().equals("head.icu@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("Dept@123"));
-                    else if (user.getEmail().equals("supervisor@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("Supervisor@123"));
-                    else if (user.getEmail().equals("priya@shiftshield.com"))
-                        user.setPassword(passwordEncoder.encode("Staff@123"));
-                    else
-                        user.setPassword(passwordEncoder.encode("Staff@123")); // Default for other staff
-
-                    user = userRepo.save(user);
-                    userMap.put(Integer.parseInt(cols[0]), user);
-                }
-            }
-
-            System.out.println("✅ Essential Data Initialization Complete.");
+            System.out.println("✅ Essential Core Data Initialization Complete.");
         };
     }
 
-    private BufferedReader readCsv(String fileName) throws Exception {
-        InputStream inputStream =
-                EssentialDataInitializer.class.getClassLoader()
-                        .getResourceAsStream("data/" + fileName);
-
-        if (inputStream == null) {
-            throw new IllegalStateException(
-                    "CSV file not found in classpath: data/" + fileName
-            );
-        }
-
-        return new BufferedReader(
-                new InputStreamReader(inputStream, StandardCharsets.UTF_8)
-        );
+    private void createUser(UserRepository userRepo, Organization org, PasswordEncoder encoder,
+                            String firstName, String lastName, String email, String pwd, String role, String phone) {
+        User user = new User();
+        user.setOrganization(org);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(encoder.encode(pwd));
+        user.setRole(role);
+        user.setStatus("ACTIVE");
+        user.setPhone(phone);
+        userRepo.save(user);
     }
 }

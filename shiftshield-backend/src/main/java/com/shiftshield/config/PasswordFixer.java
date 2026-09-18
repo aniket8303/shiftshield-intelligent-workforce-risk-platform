@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Configuration
+//@Configuration // Disabled to optimize production startup
 public class PasswordFixer {
 
     @Bean
